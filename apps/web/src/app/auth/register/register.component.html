@@ -8,12 +8,7 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill" class="form-group full-width">
         <mat-label>Username</mat-label>
-        <input
-          matInput
-          id="username"
-          formControlName="username"
-          placeholder="Enter your Username"
-        />
+        <input matInput id="username" formControlName="username" placeholder="Enter your Username" />
         <mat-error>
           @if(registerForm.get('username')?.errors?.['required']){ Username is required }
           @if(registerForm.get('username')?.errors?.['minlength']){ Username must be at least 2
@@ -23,12 +18,7 @@
 
       <mat-form-field appearance="fill" class="form-group full-width">
         <mat-label>First Name</mat-label>
-        <input
-          matInput
-          id="firstName"
-          formControlName="firstName"
-          placeholder="Enter your First Name"
-        />
+        <input matInput id="firstName" formControlName="firstName" placeholder="Enter your First Name" />
         <mat-error>
           @if(registerForm.get('firstName')?.errors?.['required']){ First Name is required }
           @if(registerForm.get('firstName')?.errors?.['minlength']){ First Name must be at least 2
@@ -38,12 +28,7 @@
 
       <mat-form-field appearance="fill" class="form-group full-width">
         <mat-label>Last Name</mat-label>
-        <input
-          matInput
-          id="lastName"
-          formControlName="lastName"
-          placeholder="Enter your Last Name"
-        />
+        <input matInput id="lastName" formControlName="lastName" placeholder="Enter your Last Name" />
         <mat-error>
           @if(registerForm.get('lastName')?.errors?.['required']){ Last Name is required }
           @if(registerForm.get('lastName')?.errors?.['minlength']){ Last Name must be at least 2
@@ -53,13 +38,7 @@
 
       <mat-form-field appearance="fill" class="form-group full-width">
         <mat-label>Password</mat-label>
-        <input
-          matInput
-          type="password"
-          id="password"
-          formControlName="password"
-          placeholder="Create a password"
-        />
+        <input matInput type="password" id="password" formControlName="password" placeholder="Create a password" />
         <mat-error>
           @if(registerForm.get('password')?.errors?.['required']){ Password is required }
           @if(registerForm.get('password')?.errors?.['minlength']){ Password must be at least 6
@@ -69,13 +48,8 @@
 
       <mat-form-field appearance="fill" class="form-group full-width">
         <mat-label>Confirm Password</mat-label>
-        <input
-          matInput
-          type="password"
-          id="confirmPassword"
-          formControlName="confirmPassword"
-          placeholder="Confirm your password"
-        />
+        <input matInput type="password" id="confirmPassword" formControlName="confirmPassword"
+          placeholder="Confirm your password" />
         <mat-error>
           @if(registerForm.get('confirmPassword')?.errors?.['mismatch']){ Passwords do not match}
         </mat-error>
@@ -87,8 +61,8 @@
       </div>
       }
 
-      <button matButton="filled" type="submit" [disabled]="registerForm.invalid || isLoading" class="submit-btn">
-        @if(isLoading){ Creating account... }@else{ Sign Up }
+      <button matButton="filled" type="submit" [disabled]="registerForm.invalid || isLoading()" class="submit-btn">
+        @if(isLoading()){ Creating account... }@else{ Sign Up }
       </button>
 
       <div class="auth-footer">

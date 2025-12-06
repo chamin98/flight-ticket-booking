@@ -7,11 +7,13 @@ import { FlightsModule } from './flights/flights.module';
 import { BookingsModule } from './bookings/bookings.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/user.entity';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      cache: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST || 'localhost',
@@ -22,8 +24,10 @@ import { User } from './users/user.entity';
       autoLoadEntities: true,
       synchronize: true,
     }),
-
-    AuthModule, UsersModule, FlightsModule, BookingsModule],
+    AuthModule,
+    UsersModule,
+    FlightsModule,
+    BookingsModule],
   controllers: [AppController],
   providers: [AppService],
 })

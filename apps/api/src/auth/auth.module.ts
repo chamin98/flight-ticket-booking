@@ -6,15 +6,17 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    UsersModule,
+    ConfigModule,
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '60s' },
+      secret: process.env.JWT_SECRET || 'd576a66e12b86c1d79219007fb4eb65b',
+      signOptions: { expiresIn: '1h' },
     }),
+    UsersModule,
   ],
   providers: [
     AuthService,

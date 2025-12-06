@@ -11,21 +11,27 @@ import {
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from './auth.constants';
+import type { SignInDto, SignUpDto } from './auth.dto';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private usersService: UsersService
+  ) { }
 
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: Record<string, any>) {
+  signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto.username, signInDto.password);
   }
 
   @Public()
+  @HttpCode(HttpStatus.OK)
   @Post('register')
-  signUp(@Body() signUpDto: Record<string, any>) {
+  signUp(@Body() signUpDto: SignUpDto) {
     return this.authService.signUp(
       signUpDto.username,
       signUpDto.password,
@@ -35,8 +41,10 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user;
+    console.log(req);
+    return this.usersService.findOne(req.user.sub);
   }
 }
