@@ -24,14 +24,16 @@ IMPORTANT
 PostgreSQL Requirement: Ensure you have a PostgreSQL database running on localhost:5432 with default credentials (postgres/postgres) and a database named flight_booking. You can configure this in apps/api/src/app.module.ts or via environment variables.
 
 Install Dependencies:
-
 npm install
-Run the Web Application:
 
+Run the Web Application:
 npm run web
 Navigate to http://localhost:4200
 
 Run the API:
-
 npm run api
 API will be available at http://localhost:3000
+
+Adding packages:
+npm install <package-name> -w <workspace-name>
+npm install bcrypt -w api
