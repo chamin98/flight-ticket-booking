@@ -1,20 +1,29 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
+import {
+  Injectable,
+  UnauthorizedException,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
+  readonly saltOrRounds = 10;
+
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
-  ) { }
+    private jwtService: JwtService,
+  ) {}
 
   async signIn(
     username: string,
-    pass: string,
+    password: string,
   ): Promise<{ access_token: string }> {
     const user = await this.usersService.findOneByUsername(username);
-    if (user?.password !== pass) throw new UnauthorizedException();
+    if (!user?.password) throw new NotFoundException();
+    if (await bcrypt.compare(password, user.password))
+      throw new UnauthorizedException();
 
     const payload = { sub: user.id, username: user.username };
     return {
@@ -24,13 +33,14 @@ export class AuthService {
 
   async signUp(
     username: string,
-    pass: string,
+    password: string,
     firstName: string,
     lastName: string,
   ): Promise<{ access_token: string }> {
+    const hash = await bcrypt.hash(password, this.saltOrRounds);
     const user = await this.usersService.create({
       username,
-      password: pass,
+      password: hash,
       firstName,
       lastName,
     });
