@@ -20,12 +20,7 @@
             </div>
             <mat-card-title>{{ flight()?.plane?.airline }}</mat-card-title>
             <mat-card-subtitle>{{ flight()?.code }}</mat-card-subtitle>
-            <!-- <div class="price-tag">{{ flight()?.price | currency }}</div> -->
           </mat-card-header>
-
-          <mat-card-actions align="end">
-            <button mat-stroked-button (click)="goBack()">Cancel</button>
-          </mat-card-actions>
 
           <mat-card-content>
             <div class="route-details">
@@ -51,6 +46,31 @@
             </div>
 
             <mat-divider></mat-divider>
+
+            @if (prediction()) {
+              <div class="prediction-info">
+                <h3>Price Prediction</h3>
+                <div class="prediction-card">
+                  <div class="price-details">
+                    <span class="current-price"
+                      >Current Price: {{ prediction()?.current_price | currency }}</span
+                    >
+                    <span class="future-price"
+                      >Predicted (7d): {{ prediction()?.future_price_7d | currency }}</span
+                    >
+                  </div>
+                  <div
+                    class="recommendation-badge"
+                    [class.buy]="prediction()?.recommendation === 'BUY'"
+                    [class.wait]="prediction()?.recommendation === 'WAIT'"
+                    [class.stable]="prediction()?.recommendation === 'STABLE'"
+                  >
+                    {{ prediction()?.recommendation }}
+                  </div>
+                </div>
+              </div>
+              <mat-divider class="spacer"></mat-divider>
+            }
 
             <div class="additional-info">
               <h3>Flight Information</h3>
@@ -145,6 +165,10 @@
               }
             </div>
           </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button mat-stroked-button (click)="goBack()">Cancel</button>
+          </mat-card-actions>
         </mat-card>
       </div>
     }

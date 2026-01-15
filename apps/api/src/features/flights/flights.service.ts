@@ -21,7 +21,10 @@ export class FlightsService {
   }
 
   findOne(id: number): Promise<Flight | null> {
-    return this.flightsRepository.findOneBy({ id });
+    return this.flightsRepository.findOne({
+      where: { id },
+      relations: ['plane'],
+    });
   }
 
   async search(

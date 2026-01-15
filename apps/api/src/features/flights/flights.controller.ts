@@ -3,10 +3,15 @@ import { FlightsService } from './flights.service';
 import { Flight } from './flight.entity';
 import { FlightSeat } from './flight-seat.entity';
 import { Fare } from './fare.entity';
+import { PricePredictionService } from './price-prediction.service';
+import { PredictionResponse } from './dtos/prediction.dto';
 
 @Controller('flights')
 export class FlightsController {
-  constructor(private readonly flightsService: FlightsService) {}
+  constructor(
+    private readonly flightsService: FlightsService,
+    private readonly pricePredictionService: PricePredictionService,
+  ) {}
 
   @Get()
   findAll(): Promise<Flight[]> {
@@ -48,5 +53,10 @@ export class FlightsController {
   @Get(':id/fares')
   getFares(@Param('id') id: string): Promise<Fare[]> {
     return this.flightsService.getFares(+id);
+  }
+
+  @Get(':id/prediction')
+  getPrediction(@Param('id') id: string): Promise<PredictionResponse> {
+    return this.pricePredictionService.getPrediction(+id);
   }
 }
