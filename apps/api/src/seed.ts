@@ -1,13 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { DataSource } from 'typeorm';
-import { Airport } from './airports/airport.entity';
+import { Airport } from './features/airports/airport.entity';
 import { AppModule } from './app.module';
 import { CabinClass } from './common/enums';
-import { Fare } from './flights/fare.entity';
-import { FlightSeat } from './flights/flight-seat.entity';
-import { Flight } from './flights/flight.entity';
-import { PlaneSeat } from './planes/plane-seat.entity';
-import { Plane } from './planes/plane.entity';
+import { Plane } from './features/planes/plane.entity';
+import { Flight } from './features/flights/flight.entity';
+import { Fare } from './features/flights/fare.entity';
+import { FlightSeat } from './features/flights/flight-seat.entity';
+import { PlaneSeat } from './features/planes/plane-seat.entity';
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);

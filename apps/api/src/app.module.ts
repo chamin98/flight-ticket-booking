@@ -1,15 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { FlightsModule } from './flights/flights.module';
-import { BookingsModule } from './bookings/bookings.module';
-import { AirportsModule } from './airports/airports.module';
-import { PlanesModule } from './planes/planes.module';
-import { PassengersModule } from './passengers/passengers.module';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
+import { FeaturesModule } from './features/features.module';
 
 @Module({
   imports: [
@@ -32,12 +27,7 @@ import { join } from 'path';
       synchronize: true,
     }),
     AuthModule,
-    UsersModule,
-    FlightsModule,
-    BookingsModule,
-    AirportsModule,
-    PlanesModule,
-    PassengersModule,
+    FeaturesModule,
   ],
 })
 export class AppModule {}

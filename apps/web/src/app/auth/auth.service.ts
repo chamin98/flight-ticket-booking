@@ -9,20 +9,14 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = environment.apiEndpoint +'auth';
+  private apiUrl = environment.apiEndpoint + 'auth';
   private http = inject(HttpClient);
 
-  // Signal to hold the current user
   private currentUserSignal = signal<User | null>(null);
-
-  // Computed signal to check if user is logged in
   readonly isLoggedIn = computed(() => !!this.currentUserSignal());
-
-  // Computed signal to get current user
   readonly currentUser = computed(() => this.currentUserSignal());
 
   constructor(private router: Router) {
-    // Check local storage for persisted user on init
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.currentUserSignal.set(JSON.parse(storedUser));
@@ -35,7 +29,7 @@ export class AuthService {
         localStorage.setItem('token', response.access_token);
         this.getProfile().subscribe();
         this.router.navigate(['/']);
-      })
+      }),
     );
   }
 
@@ -43,7 +37,7 @@ export class AuthService {
     username: string,
     password: string,
     firstName: string,
-    lastName: string
+    lastName: string,
   ): Observable<any> {
     return this.http
       .post<any>(`${this.apiUrl}/register`, {
@@ -57,7 +51,7 @@ export class AuthService {
           localStorage.setItem('token', response.access_token);
           this.getProfile().subscribe();
           this.router.navigate(['/']);
-        })
+        }),
       );
   }
 
@@ -66,7 +60,7 @@ export class AuthService {
       tap((user) => {
         this.currentUserSignal.set(user);
         localStorage.setItem('user', JSON.stringify(user));
-      })
+      }),
     );
   }
 
