@@ -1,5 +1,6 @@
 import { Airport } from './airport-model';
 import { Plane } from './plane-model';
+import { Fare } from './fare.model';
 
 export interface Flight {
   id: number;
@@ -12,4 +13,5 @@ export interface Flight {
   arrivalAirportId: number;
   departureTime: Date;
   arrivalTime: Date;
+  fares: Fare[];
 }

@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { Fare } from '../models/fare.model';
 import { FlightSeat } from '../models/flight-seat.model';
 import { Flight } from '../models/flight.model';
+import { Airport } from '../models/airport-model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,13 @@ export class FlightService {
   private apiUrl = environment.apiEndpoint + 'flights';
   private http = inject(HttpClient);
 
-  searchFlights(origin: string, destination: string, date: Date, originId?: number, destinationId?: number): Observable<Flight[]> {
+  searchFlights(
+    origin: string,
+    destination: string,
+    date: Date,
+    originId?: number,
+    destinationId?: number,
+  ): Observable<Flight[]> {
     let params = new HttpParams()
       .set('origin', origin)
       .set('destination', destination)
@@ -29,8 +36,12 @@ export class FlightService {
     return this.http.get<Flight[]>(`${this.apiUrl}/search`, { params });
   }
 
-  getAirports(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiEndpoint}airports`);
+  getAirports(): Observable<Airport[]> {
+    return this.http.get<Airport[]>(`${environment.apiEndpoint}airports`);
+  }
+
+  getLatestFlights(): Observable<Flight[]> {
+    return this.http.get<Flight[]>(`${this.apiUrl}/latest`);
   }
 
   getFlightById(id: string): Observable<Flight> {

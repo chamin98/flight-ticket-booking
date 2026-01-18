@@ -6,13 +6,14 @@ How to Run
 
 Create a PostgreSQL database for the application
 create a .env file and add these Environment Variables:
-    JWT_SECRET=
-    PORT=
-    DB_PORT=
-    DB_HOST=
-    DB_USER=
-    DB_PASSWORD=
-    DB_NAME=
+JWT_SECRET=
+PORT=
+DB_PORT=
+DB_HOST=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+PRICE_PREDICTION_API_URL=
 
 Install Dependencies:
 npm install
