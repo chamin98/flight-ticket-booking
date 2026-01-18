@@ -12,7 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from './auth.constants';
 import type { SignInDto, SignUpDto } from './auth.dto';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/features/users/users.service';
 
 @Controller('auth')
 export class AuthController {

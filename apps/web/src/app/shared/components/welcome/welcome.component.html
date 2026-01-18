@@ -1,7 +1,7 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-copy">
-      <h1>Welcome to FlightBooking</h1>
+      <h1>Welcome to FareWise</h1>
       <p class="sub">Search, compare and book the best flights — all in one place.</p>
     </div>
 
@@ -63,22 +63,24 @@
 </section>
 
 <section class="featured">
-  <h2>Featured deals</h2>
+  <h2>Latest Flights</h2>
   <div class="cards">
-    @for(f of featuredFlights; track f.id){
-    <div class="card">
-      <div class="card-top">
-        <strong>{{ f.airline }}</strong>
-        <span class="price">${{ f.price }}</span>
+    @for (f of featuredFlights$ | async; track f.id) {
+      <div class="card">
+        <div class="card-top">
+          <strong>{{ f.airline }}</strong>
+          <span class="price">From {{ f.price | currency }}</span>
+        </div>
+        <div class="card-body">
+          <div class="route">{{ f.from }} → {{ f.to }}</div>
+          <div class="depart">Departs: {{ f.depart | date: 'shortTime' }}</div>
+        </div>
+        <div class="card-actions">
+          <button matButton (click)="viewDetails(f.id)">View</button>
+        </div>
       </div>
-      <div class="card-body">
-        <div class="route">{{ f.from }} → {{ f.to }}</div>
-        <div class="depart">Departs: {{ f.depart }}</div>
-      </div>
-      <div class="card-actions">
-        <button matButton (click)="viewDetails(f.id)">View</button>
-      </div>
-    </div>
+    } @empty {
+      <p>No flights available.</p>
     }
   </div>
 </section>

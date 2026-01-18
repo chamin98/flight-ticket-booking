@@ -1,16 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
-  UseGuards,
+  Get,
+  Param,
+  Post,
   Request,
+  UseGuards,
 } from '@nestjs/common';
-import { BookingsService } from './bookings.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { Booking } from './booking.entity';
-import { AuthGuard } from '../auth/auth.guard';
+import { BookingsService } from './bookings.service';
 
 @Controller('bookings')
 @UseGuards(AuthGuard)
